@@ -20,8 +20,6 @@ def power_validator(min_power: int) -> Callable:
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             power = kwargs.get('power')
-            if power is None and len(args) > 1:
-                power = args[1]
             if power is None:
                 for arg in args:
                     if isinstance(arg, int):
