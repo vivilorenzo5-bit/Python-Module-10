@@ -47,7 +47,7 @@ def spell_dispatcher() -> Callable[[Any], str]:
         return f"Damage spell: {spell} damage"
 
     @dispatcher.register(str)
-    def _(spell: int) -> str:
+    def _(spell: str) -> str:
         return f"Enchantment: {spell}"
 
     @dispatcher.register(list)
