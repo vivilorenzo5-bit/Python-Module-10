@@ -32,20 +32,20 @@ def power_validator(min_power: int) -> Callable:
     return decorator
 
 
-def retry_spell(max_attemps: int) -> Callable:
+def retry_spell(max_attempts: int) -> Callable:
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            for attempt in range(1, max_attemps + 1):
+            for attempt in range(1, max_attempts + 1):
                 try:
                     return func(*args, **kwargs)
                 except Exception:
-                    if attempt < max_attemps:
+                    if attempt < max_attempts:
                         print(
                             f"Spell failed, retrying... (attempt {attempt}/"
-                            f"{max_attemps}"
+                            f"{max_attempts}"
                         )
-            return f"Spell casting failed after {max_attemps} attempts"
+            return f"Spell casting failed after {max_attempts} attempts"
         return wrapper
     return decorator
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     def test_retry() -> None:
         attempts_count = 0
 
-        @retry_spell(max_attemps=3)
+        @retry_spell(max_attempts=3)
         def unstable_spell() -> str:
             nonlocal attempts_count
             attempts_count += 1
